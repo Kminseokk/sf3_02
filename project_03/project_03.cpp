@@ -20,10 +20,10 @@ int main()
 {
     srand(time(NULL));
 
-	int Computer_num[6];
-	int check[46] = { 0, };
+	int Computer_num[6]; //컴퓨터가 생성한 번호
+	int check[46] = { 0, }; //벡터에 랜덤한 값을 넣기위해
 	int num;
-	vector<int> User_number;
+	vector<int> User_number; //유저가 만드는 번호
 
 
 	for (int i = 0; i < 6; i++) {
@@ -56,6 +56,16 @@ int main()
 		}
 	}
 
+	// 같은 숫자 개수 세기
+	int count = 0;
+	for (int i = 0; i < 6; i++) {
+		if (find(User_number.begin(), User_number.end(), Computer_num[i]) != User_number.end()) {
+			count++;
+		}
+	}	//User_number.end()의 값이 반환되면 컴퓨터숫자와 일치하는게 없다는 의미. (인덱스 값 반환)
+		//반대로 생각하면, 반환된 값이 User_number.end() 이랑 다르다면, 같은 값을 찾았단 의미이다.
+			
+
 
 	cout << "\n사용자의 입력 번호 !" << endl;
 	for (auto n : User_number) {
@@ -68,8 +78,33 @@ int main()
 		cout <<  n << " ";
 	}
 	cout << "\n";
+	cout << "***********************************************";
+	cout << "\n1 ~ 7등 까지의 결과가 나올 수 있습니다. " << endl;
 
-	cout <<  "\n1 ~ 7등 까지의 결과가 나올 수 있습니다. " << " ";
+	// 같은 숫자 개수에 따른 등수 출력
+	if (count == 6) {
+		cout << "1등! 6개의 모든 숫자를 맞추셨습니다." << endl;
+	}
+	else if (count == 5) {
+		cout << "2등! 5개의 숫자를 맞추셨습니다." << endl;
+	}
+	else if (count == 4) {
+		cout << "3등! 4개의 숫자를 맞추셨습니다." << endl;
+	}
+	else if (count == 3) {
+		cout << "4등! 3개의 숫자를 맞추셨습니다." << endl;
+	}
+	else if (count == 2) {
+		cout << "5등! 2개의 숫자를 맞추셨습니다." << endl;
+	}
+	else if (count == 1) {
+		cout << "6등! 1개의 숫자를 맞추셨습니다." << endl;
+	}
+	else {
+		cout << "7등! 당첨 숫자가 없습니다." << endl;
+	}
+
+
 
 
 
