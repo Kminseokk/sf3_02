@@ -1,16 +1,41 @@
+
+#include "Weapon.h"
 #include "Knife.h"
 #include <iostream>
 
+using namespace std;
+
 Knife::Knife() {
+	this->attack_Damage = 5;
+	this->attack_Chance = 3;
+
 }
 
-Knife::~Knife() {
+void Knife::initAttackChance()
+{
+	this->attack_Chance = 3;
+}
+
+void Knife::get_AttackChance(){
+	cout << "ÇØ´ç ¹«±â(Ä®)ÀÇ ³²Àº °ø°Ý È½¼ö´Â " << attack_Chance << "¹ø ÀÔ´Ï´Ù." << endl;
+}
+
+int Knife::get_AttackDamage()
+{
+	return attack_Damage;
+}
+
+int Knife::check_AttackChance()
+{
+	return attack_Chance;
 }
 
 void Knife::Attack() {
-    std::cout << "Ä®À» Âî¸£±â" << std::endl;
-}
-
-void Knife::PrintInfo() {
-    std::cout << "Ä® (µ¥¹ÌÁö: 15, °ø°Ý °¡´É È½¼ö: 3)" << std::endl;
+	if (attack_Chance > 0) {
+		cout << "¾²À¹ ½Î¾Ç- µ¥¹ÌÁö " << attack_Damage << " ¸¦ ÀÔÇû½À´Ï´Ù." << endl;
+		this->attack_Chance = attack_Chance - 1;
+	}
+	else {
+		cout << "°ø°Ý È½¼ö°¡ ºÎÁ·ÇÏ´Ù." << endl;
+	}
 }

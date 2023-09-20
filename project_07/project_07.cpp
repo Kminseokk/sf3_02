@@ -23,7 +23,8 @@ using namespace std;
 
 int main() {
     // Character 객체 생성
-    Character character;
+    Character character("김민석");
+    Character enemy("꾸엉");
 
     // Gun 객체 생성
     Gun* gun = new Gun();
@@ -43,38 +44,62 @@ int main() {
     cout << "\n\n";
 
     while (1) {
-        cout << " ▶ 무엇을 할까? : ";
+        cout << "\n ▶ 무엇을 할까? : ";
         cin >> user_choice;
 
         if (user_choice == 1) { // 1. 유저 정보 출력
-            cout << "캐릭터의 HP: " << character.GetHP() << "입니다." << endl;
-            cout << "캐릭터의 Level: " << character.GetLevel() << "입니다."<< endl;
-            cout << "캐릭터가 가진 무기 " << character.PrintEquippedWeaponInfo() << "입니다." << endl;
+            cout << "(●'ㅡ'●)캐릭터의 이름 : " << character.get_name() << "입니다." << endl;
+            cout << "(●'ㅡ'●)캐릭터의 HP : " << character.get_hp() << "입니다." << endl;
+            cout << "(●'ㅡ'●)캐릭터의 Level : " << character.get_level() << "입니다." << endl;
+            character.get_weapon();
+            if (character.get_weaponIndex() == 1){ //총
+                gun->get_AttackChance();
+            }
+            if (character.get_weaponIndex() == 2) { //칼
+                knife->get_AttackChance();
+            }
             cout << "\n";
         }
-        if (user_choice == 2) { // 2. 유저 총기 획득
-            character.PickUpWeapon(gun);
-            cout << "캐릭터가 총을 획득해서 소지했습니다." << endl;
+        if (user_choice == 2) { // 2. 유저 총기 획득 웨폰인덱스 1
+            character.Player_GetWeapon(1); 
+            gun->initAttackChance();
             cout << "\n";
         }
-        if (user_choice == 3) { // 3. 유저 소드 획득
-            character.PickUpWeapon(knife);
-            cout << "캐릭터가 칼을 획득해서 소지했습니다." << endl;
+        if (user_choice == 3) { // 3. 유저 소드 획득 웨폰인덱스 2
+            character.Player_GetWeapon(2);
+            knife->initAttackChance(); //공격횟수 초기화.
             cout << "\n";
         }
-        if (user_choice == 4) { // 4. 공격 하기 !!!!
+        if (user_choice == 4) { // 4. 공격 하기 !!!! 아 공격횟수 차감되서 공격 횟수없으면 공격 안하는거 해야함.
+            if (character.get_weaponIndex() == 1) { //총
+                if (gun->check_AttackChance() > 0 ) {
+                    gun->Attack();
+                    enemy.set_hp(enemy.get_hp() - gun->get_AttackDamage());
+                }
+                else {
+                    cout << "공격 횟수가 부족해서 공격에 실패했습니다," << endl;
+                }
+            }
+            else if (character.get_weaponIndex() == 2) { //칼
+                if (knife->check_AttackChance() > 0 ) {
+                    knife->Attack();
+                    enemy.set_hp(enemy.get_hp() - knife->get_AttackDamage());
+                }
+                else {
+                    cout << "공격 횟수가 부족해서 공격에 실패했습니다," << endl;
+                }
+            }            
+            else {
+                cout << "아무런 무기가 없어서 공격에 실패했습니다," << endl;
+            }
+            cout << "적에게 남은 체력은 : " << enemy.get_hp() << endl;
 
         }
         if (user_choice == 5) { // 5. 종료
-
+            cout << "게임을 종료하겠습니다. ㄴ(*°▽°*)ㄱ " << endl;
+            break;
         }
-
-
-
     }
-    // 캐릭터가 공격하기
-    std::cout << "캐릭터의 HP: " << character.GetHP() << std::endl;
-    //character.Attack();
 
 
     return 0;

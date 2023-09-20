@@ -13,6 +13,7 @@
 #include <ctime>
 #include <algorithm> 
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -24,7 +25,9 @@ int main()
 	int check[46] = { 0, }; //벡터에 랜덤한 값을 넣기위해
 	int num;
 	vector<int> User_number; //유저가 만드는 번호
-
+	bool calc_Flag = false;
+	string user_input;
+	int i = 1;
 
 	for (int i = 0; i < 6; i++) {
 		do {
@@ -38,11 +41,34 @@ int main()
 	while (User_number.size() < 6 ){
 		int num;
 		bool isDuplicate = false;
+		
 
-		// 사용자로부터 숫자 입력 받기
-		cout << "숫자를 입력하세요: ";
-		cin >> num;
-		cout << "\n";
+		//// 사용자로부터 숫자 입력 받기
+		//cout << "숫자를 입력하세요: ";
+		//cin >> num;
+		//cout << "\n";
+
+		while (!calc_Flag) { //트루값이 되면 반복문 종료.
+			cout << "숫자를 입력하세요: ";
+			cin >> user_input;
+
+			calc_Flag = true; //만약 밑에 포문을 거쳐서 숫자가 맞다면 true 유지해서 while문 종료
+			for (char c : user_input) {
+				if (!isdigit(c)) {
+					calc_Flag = false; //요기에 왔다면 숫자가 아닌 값이라는 의미.
+					break;
+				}
+			}
+			if (!calc_Flag) {
+				cout << i << " 번쨰 숫자에 입력한 값이 숫자가 아닙니다. 다시 입력하세요.\n" << endl;
+			}
+
+			if (calc_Flag) { //숫자라는 의미이므로, 입력한 스트링값을 int로 바꿔서 num1에 저장
+				num = stoi(user_input);
+			}
+		}
+		i++;
+		calc_Flag = false;
 
 		// 중복 확인
 		if (find(User_number.begin(), User_number.end(), num) != User_number.end()) {

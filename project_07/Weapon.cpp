@@ -1,14 +1,14 @@
 #include "Weapon.h"
 #include <iostream>
 
-Weapon::Weapon(int damage, int attackCount) : damage(damage), attackCount(attackCount) {
-}
+using namespace std;
 
-Weapon::~Weapon() {
+Weapon::Weapon() {
+	this->attack_Chance = 0;
+	this->attack_Damage = 0;
+
 }
 
 void Weapon::Attack() {
-    for (int i = 0; i < attackCount; ++i) {
-        std::cout << "공격하기" << std::endl;
-    }
+	cout << "무기로 공격합니다." << endl;
 }
