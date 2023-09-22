@@ -14,18 +14,19 @@
 //      5. 파일 분리하기.
 // 
 ///////////////////////////////////////////////////////////////////////////
-#include <iostream>
-#include "Character.h"
-#include "Gun.h"
-#include "Knife.h"
+
+#include "game.h" //키 컨트롤
+#include "Start.h"
 
 using namespace std;
+//int Gaming_select();
 
 int game_Start() {
-    system("cls"); // 콘솔창을 클린 하란 의미
-    // Character 객체 생성
-    Character character("김민석");
-    Character enemy("꾸엉");
+
+    Character character("커다시"); 
+    //게임 캐릭터 생성 관련한 부분이 따로 있으면 좋을듯 (유저생성아이디 + 아이디 저장 비밀번호.... 좀 게임 st)
+
+    Character enemy("슬라임"); // ★★★★ 앤어미 생성 클래스가 따로 있었으면 좋겠다.
 
     // Gun 객체 생성
     Gun* gun = new Gun();
@@ -33,45 +34,47 @@ int game_Start() {
     // Knife 객체 생성
     Knife* knife = new Knife();
 
-    int user_choice;
-
-    cout << "★★★★★★★★★★★★★★★★★★★" << endl;
-    cout << "★ 1. 유저 정보 출력 " << endl;
-    cout << "★ 2. 유저 총기 획득 " << endl;
-    cout << "★ 3. 유저 소드 획득 " << endl;
-    cout << "★ 4. 공격 하기 !!!! " << endl;
-    cout << "★ 5. 종료 해주 세요 " << endl;
-    cout << "★★★★★★★★★★★★★★★★★★★" << endl;
-    cout << "\n\n";
-
     while (1) {
-        cout << "\n ▶ 무엇을 할까? : ";
-        cin >> user_choice;
+        system("cls"); // 콘솔창을 클린 하란 의미
 
-        if (user_choice == 1) { // 1. 유저 정보 출력
-            cout << "(●'ㅡ'●)캐릭터의 이름 : " << character.get_name() << "입니다." << endl;
-            cout << "(●'ㅡ'●)캐릭터의 HP : " << character.get_hp() << "입니다." << endl;
-            cout << "(●'ㅡ'●)캐릭터의 Level : " << character.get_level() << "입니다." << endl;
-            character.get_weapon();
-            if (character.get_weaponIndex() == 1) { //총
-                gun->get_AttackChance();
-            }
-            if (character.get_weaponIndex() == 2) { //칼
-                knife->get_AttackChance();
-            }
+        string message_01;
+        cout << "\n";
+        cout << " ■■■■■■■■■■■■■■■■■■■■■■■■■■■ \n";
+        cout << " ■" << "(●'ㅡ'●)캐릭터의 이름 : " << character.get_name() << "입니다." << endl;
+        cout << " ■" << "(●'ㅡ'●)캐릭터의 HP : " << character.get_hp() << " 입니다." << endl;
+        cout << " ■" << "(●'ㅡ'●)캐릭터의 Level : " << character.get_level() << "입니다." << endl;
+        cout << " ■"; character.get_weapon();
+        cout << " ■";
+        //공격 횟수 나타내기
+        if (character.get_weaponIndex() == 0) { //없음
             cout << "\n";
         }
-        if (user_choice == 2) { // 2. 유저 총기 획득 웨폰인덱스 1
+        if (character.get_weaponIndex() == 1) { //총
+            gun->get_AttackChance();
+        }
+        if (character.get_weaponIndex() == 2) { //칼
+            knife->get_AttackChance();
+        }
+        cout << " ■-------------- 이걸 뭐라 했더라 --------------\n";
+        cout << " ■ \n";
+        cout << " ■" << "(●'ㅡ'●)적의 hp : " << enemy.get_hp() << "입니다." << endl;
+        cout << " ■ \n";
+        cout << " ■■■■■■■■■■■■■■■■■■■■■■■■■■■ \n";
+
+        int userSelect = Gaming_select(); // 게임시작 버튼 생성
+        cout << userSelect << endl;
+
+        if (userSelect == 0) { // 0. 유저 총기 획득 웨폰인덱스 1
             character.Player_GetWeapon(1);
             gun->initAttackChance();
             cout << "\n";
         }
-        if (user_choice == 3) { // 3. 유저 소드 획득 웨폰인덱스 2
+        if (userSelect == 1) { // 1. 유저 소드 획득 웨폰인덱스 2
             character.Player_GetWeapon(2);
             knife->initAttackChance(); //공격횟수 초기화.
             cout << "\n";
         }
-        if (user_choice == 4) { // 4. 공격 하기 !!!! 아 공격횟수 차감되서 공격 횟수없으면 공격 안하는거 해야함.
+        if (userSelect == 2) { // 2. 공격 하기 !!!! 아 공격횟수 차감되서 공격 횟수없으면 공격 안하는거 해야함.
             if (character.get_weaponIndex() == 1) { //총
                 if (gun->check_AttackChance() > 0) {
                     gun->Attack();
@@ -96,12 +99,54 @@ int game_Start() {
             cout << "적에게 남은 체력은 : " << enemy.get_hp() << endl;
 
         }
-        if (user_choice == 5) { // 5. 종료
+        if (userSelect == 3) { // 5. 종료
             cout << "게임을 종료하겠습니다. ㄴ(*°▽°*)ㄱ " << endl;
             break;
         }
+
+
     }
-
-
     return 0;
-}
+};
+
+//
+//int Gaming_select() {
+//    int x = 3;
+//    int y = 13;
+//    gotoxy(x - 2, y);
+//    printf(">  총기 획득 "); // 인덱스 0 반환!!!! 다른 애들보다 x값이 작은건 > 때문에 자연스럽게 보일려고
+//    gotoxy(x, y + 1); // 36 , 16
+//    printf(" 칼칼 획득 "); // 인덱스 1 반환!!!!
+//    gotoxy(x, y + 2); // 36, 17
+//    printf(" 공격 하기"); // 인덱스 2 반환!!!!
+//    gotoxy(x, y + 3); // 36, 17
+//    printf(" 종료 하기"); // 인덱스 3 반환!!!!
+//
+//    while (1) {
+//        int n = keyControl(); //키값 받기
+//        switch (n) {
+//        case UP: {
+//            if (y > 13) {
+//                gotoxy(x - 2, y);
+//                printf(" ");
+//                gotoxy(x - 2, --y);
+//                printf(">");
+//            }
+//            break;
+//        }
+//        case DOWN: {
+//            if (y < 16) {
+//                gotoxy(x - 2, y);
+//                printf(" ");
+//                gotoxy(x - 2, ++y);
+//                printf(">");
+//            }
+//            break;
+//        }
+//        case SUBMIT: {
+//            return y - 13; // 시작 위치를 빼서 메뉴 선택을 0 , 1 , 2 값으로 좁힘.
+//        }
+//        }//스위치문 닫는 곳
+//
+//    }
+//}

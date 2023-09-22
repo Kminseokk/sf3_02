@@ -1,6 +1,7 @@
 #pragma once
 #include "main.h"
 
+
 #ifndef KEY_CODE
 #define KEY_CODE
 
@@ -17,3 +18,4 @@ int MenuDraw();        // 게임시작 등등 버튼 생성 함수
 int keyControl();       // 키보드 입력 값 컨트롤 함수
 void infoGame();        //게임정보 출력
 void MainMenu();
+int Gaming_select();
