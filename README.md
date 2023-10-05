@@ -16,7 +16,9 @@ project_06. [C++] 클래스 상속, 정적 멤버, 업 캐스팅, 가상 함수�
 
 project_07. [C++] 클래스 내용을 사용하여 간단한 게임 만들기
 
-project_08. [C++] 클래스 내용을 사용하여 간단한 게임 만들기에 내용 추가하기
+✨ https://kaey.tistory.com/457 에서 project 01~05 에 대한 회고를 확인하실 수 있습니다.
+
+✨ project_08. [C++] 클래스 내용을 사용하여 간단한 게임 만들기에 내용 추가하기
 
     - 키 입력 (A, W, S, D, SPACE BAR)을 이용한 UI 계획하고 만들기
     - 메인 함수 내용을 최대한으로 덜어내기
@@ -26,5 +28,5 @@ project_test. [C++] 키 입력 값을 지정하고 값으로 판단할 수 있�
 
 project_gameStart. 메인 함수에서 UI에서의 입력에 따른 화면 전환 기능 구현
 
+![1](https://github.com/Kminseokk/sf3_02/assets/74297468/494b4776-3fc9-49cd-a343-17d3dc08d036)
 
-✨ https://kaey.tistory.com/457 에서 project 01~05 에 대한 회고를 확인하실 수 있습니다.
